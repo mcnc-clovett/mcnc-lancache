@@ -1,0 +1,5 @@
+name: mcnc-lancache
+include:
+  - ./docker/mcnc-lancache/compose.yml
+  - ./docker/netdata/compose.yml
+  - ./docker/portainer/compose.yml
