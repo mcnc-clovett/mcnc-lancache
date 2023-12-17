@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: mcnc-lancache
+    image: mcncclovett/lancache
     hostname: lancache
     container_name: lancache
     restart: always
