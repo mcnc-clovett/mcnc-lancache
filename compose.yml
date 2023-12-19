@@ -1,5 +1,28 @@
+version: '3'
 name: mcnc-lancache
 include:
-  - ./docker/mcnc-lancache/compose.yml
   - ./docker/netdata/compose.yml
   - ./docker/portainer/compose.yml
+services:
+  web:
+    image: mcncclovett/lancache
+    hostname: lancache
+    container_name: lancache
+    restart: always
+    volumes:
+      - ./nginxconfig:/etc/nginx/
+      - nginx_cache:/var/cache/nginx/cache/:cached
+      - nginx_logs:/var/log/nginx/
+    network_mode: host
+    depends_on:
+      netdata:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      test: "bash -c 'cat < /dev/null > /dev/tcp/localhost/80' || exit 1"
+volumes:
+  nginx_cache:
+  nginx_logs:
