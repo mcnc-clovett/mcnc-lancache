@@ -14,10 +14,6 @@ services:
       - nginx_cache:/var/cache/nginx/cache/:cached
       - nginx_logs:/var/log/nginx/
     network_mode: host
-    depends_on:
-      netdata:
-        condition: service_healthy
-        restart: true
     healthcheck:
       start_period: 30s
       timeout: 3s
